@@ -19,10 +19,15 @@ def part_2(file):
 		char_counts[left] += count
 		char_counts[right] += count
 
-	# Every character except the first is counted twice (as the left and right character of a pair)
+	# Every character except the first and last is counted twice (as the left and right character of a pair)
 	# Dividing by 2 and rounding up gives the actual character count
 	for char, count in char_counts.items():
 		char_counts[char] = ceil(count / 2)
+
+	# If the first and last character are the same, add 1 to that characters count
+	# A*****A only counts A as part of two pairs, which means char_counts[A] would be 1 instead of 2
+	if start[0] == start[-1]:
+		char_counts[start[0]] += 1
 	ordered = char_counts.most_common()
 	return(ordered[0][1] - ordered[-1][1])
 	
