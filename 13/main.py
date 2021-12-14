@@ -30,7 +30,7 @@ def print_grid(grid):
 	string = ""
 	for y in range(y_max+1):
 		for x in range(x_max+1):
-			string += "# " if (x,y) in grid else ". "
+			string += "#" if (x,y) in grid else " "
 		string += '\n'
 	print(string)
 
@@ -53,3 +53,4 @@ def read_file(file):
 
 print(part_1("input.txt"))
 part_2("input.txt")
+part_2("caesarSalad.txt")
