@@ -53,11 +53,7 @@ def explode_snailfish(tree):
 
 
 def split_snailfish(tree):
-	# Navigate to the leftmost subtree with highest depth
-	leftest = tree
-	while len(leftest._children) > 0:
-		leftest = leftest._children[0]
-	current = leftest
+	current = tree.get_leftest_child()
 	while current is not None:
 		if current._value >= 10:
 			left_child = floor(current._value / 2)
