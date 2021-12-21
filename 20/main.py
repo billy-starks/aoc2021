@@ -42,16 +42,20 @@ def enhance(algo_string, pixel_grid):
 	# any pixel in the 'sparse' part of pixel_grid
 	# Eq. If pixel_grid goes from (0,0) to (4,4), calculate all pixels
 	# in new_pixel_grid from (-1,-1) to (5,5)
-	low_y = min(pixel_grid.keys())
-	high_y = max(pixel_grid.keys())
-	low_x = min(pixel_grid[0].keys())
-	high_x = max(pixel_grid[0].keys())
-	for y in range(low_y - 1, high_y + 2):
-		for x in range(low_x - 1, high_x + 2):
-			index = get_index(pixel_grid, x, y)
-			value = get_index_value(algo_string, index)
-			new_pixel_grid[y][x] = value
+	points_to_check = get_points_to_check(pixel_grid)
+	for x,y in points_to_check:
+	    index = get_index(pixel_grid, x, y)
+	    value = get_index_value(algo_string, index)
+	    new_pixel_grid[y][x] = value
 	return new_pixel_grid
+
+def get_points_to_check(pixel_grid):
+	ys_to_check = list(pixel_grid.keys())
+	points_to_check = set()
+	for y in ys_to_check:
+		for x in list(pixel_grid[y].keys()):
+			points_to_check.update(((x+i), (y+j)) for j in [-1,0,1] for i in [-1,0,1])
+	return points_to_check
 
 def print_grid(pixel_grid):
 	string = ""
@@ -83,5 +87,6 @@ def part_2(file):
 				count += 1
 	return count
 
-print(part_1("input.txt"))
-print(part_2("input.txt"))
+if __name__ == "__main__":
+	print(part_1("input.txt"))
+	print(part_2("input.txt"))
